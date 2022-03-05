@@ -55,6 +55,17 @@ button {
   background-color: lightslategray;
 }
 
+.l1,
+.l2,
+.l3 {
+  background-color: burlywood;
+}
+
+.l4,
+.l5 {
+  background: lightblue;
+}
+
 .frog {
   background-color: green;
 }
