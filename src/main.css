@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Hubballi&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Hubballi", cursive;
+  background-color: #82E0AA;
+  color: white;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  background-color: yellowgreen;
+  padding: 10px;
+}
+
+.game-container {
+  width: 180px;
+  height: 180px;
+  border: 1px solid gray;
+  display: flex;
+  flex-wrap: wrap;
+  background: white;
+  margin-top: 1.5rem;
+}
+
+.game-container div {
+  width: 20px;
+  height: 20px;
+}
+
+.game-start {
+  background-color: blue;
+}
+
+.game-end {
+  background-color: red;
+}
+
+.frog {
+  background-color: green;
+}
