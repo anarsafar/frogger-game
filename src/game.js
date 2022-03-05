@@ -4,6 +4,8 @@ import './main.css';
 // const displayGameResult = document.getElementById('result');
 // const startPauseBtn = document.getElementById('start-pause-btn');
 const squares = document.querySelectorAll('.game-container div');
+const carsLeft = document.querySelectorAll('.car-left');
+const carsRight = document.querySelectorAll('.car-right');
 
 let currentIndex = 76;
 const width = 9;
@@ -26,3 +28,24 @@ const frogMove = (e) => {
 }
 
 document.addEventListener('keyup', frogMove);
+
+const moveCar = (carLeft) => {
+
+    if (carLeft.classList.contains('c1')) {
+        carLeft.classList.remove('c1');
+        carLeft.classList.add('c3');
+    } else if (carLeft.classList.contains('c2')) {
+        carLeft.classList.remove('c2');
+        carLeft.classList.add('c1');
+    } else if (carLeft.classList.contains('c3')) {
+        carLeft.classList.remove('c3');
+        carLeft.classList.add('c2');
+    }
+}
+
+const autoMove = () => {
+    carsLeft.forEach(carLeft => moveCar(carLeft));
+    carsRight.forEach(carRight => moveCar(carRight));
+};
+
+setInterval(autoMove, 1000);
