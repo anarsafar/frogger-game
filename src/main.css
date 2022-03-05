@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Hubballi", cursive;
-  background-color: #82E0AA;
+  background-color: #82e0aa;
   color: white;
 }
 
@@ -27,7 +27,6 @@ button {
 .game-container {
   width: 180px;
   height: 180px;
-  border: 1px solid gray;
   display: flex;
   flex-wrap: wrap;
   background: white;
@@ -45,6 +44,15 @@ button {
 
 .game-end {
   background-color: red;
+}
+
+.c1 {
+  background-color: black;
+}
+
+.c2,
+.c3 {
+  background-color: lightslategray;
 }
 
 .frog {
