@@ -1,8 +1,8 @@
 import './main.css';
 
-// const displayTimeLeft = document.getElementById('time-left');
-// const displayGameResult = document.getElementById('result');
-// const startPauseBtn = document.getElementById('start-pause-btn');
+const displayTimeLeft = document.getElementById('time-left');
+const displayGameResult = document.getElementById('result');
+const startPauseBtn = document.getElementById('start-pause-btn');
 const squares = document.querySelectorAll('.game-container div');
 const carsLeft = document.querySelectorAll('.car-left');
 const carsRight = document.querySelectorAll('.car-right');
@@ -10,6 +10,10 @@ const logsLeft = document.querySelectorAll('.log-left');
 const logsRight = document.querySelectorAll('.log-right');
 
 let currentIndex = 76;
+let timerID = null;
+let timeLeft = 10;
+let tempTimeID = null;
+let checkID = null;
 const width = 9;
 
 const frogMove = (e) => {
@@ -28,8 +32,6 @@ const frogMove = (e) => {
     squares[currentIndex].classList.add('frog');
 
 }
-
-document.addEventListener('keyup', frogMove);
 
 const moveCar = (car) => {
 
@@ -88,6 +90,53 @@ const autoMove = () => {
     carsRight.forEach(carRight => moveCar(carRight));
     logsLeft.forEach(logLeft => moveLogsLeft(logLeft));
     logsRight.forEach(logRight => moveLogsRight(logRight));
+    timeLeft -= 1;
+    displayTimeLeft.innerHTML = timeLeft;
 };
 
-setInterval(autoMove, 1000);
+const cleanUp = () => {
+    clearInterval(timerID);
+    clearInterval(checkID);
+    squares[currentIndex].classList.remove('frog');
+    document.removeEventListener('keyup', frogMove);
+}
+
+const checkLose = () => {
+    if (squares[currentIndex].classList.contains('c1') ||
+        squares[currentIndex].classList.contains('l4') ||
+        squares[currentIndex].classList.contains('l5') ||
+        timeLeft <= 0
+    ) {
+        displayGameResult.innerHTML = 'You Lose';
+        cleanUp();
+    } else if (squares[currentIndex].classList.contains("game-end")) {
+        displayGameResult.innerHTML = 'You win';
+        cleanUp();
+    }
+}
+
+const startUp = () => {
+    timerID = setInterval(autoMove, 1000);
+    checkID = setInterval(checkLose, 50);
+    document.addEventListener('keyup', frogMove);
+}
+
+const startPauseGame = () => {
+    if (!squares[currentIndex].classList.contains('frog')) {
+        startUp();
+        displayGameResult.innerHTML = '';
+        currentIndex = 76;
+        timeLeft = 10;
+        squares[currentIndex].classList.add('frog');
+        tempTimeID = timerID;
+    } else if (timeLeft < 10 && tempTimeID === timerID) {
+        cleanUp();
+        tempTimeID = null;
+        squares[currentIndex].classList.add('frog');
+    } else {
+        startUp();
+        tempTimeID = timerID;
+    }
+}
+
+startPauseBtn.addEventListener('click', startPauseGame);
